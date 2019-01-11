@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import {MenuItem, Select, InputLabel, CircularProgress, Fade, TextField, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import {MenuItem, Select, InputLabel, Hidden, CircularProgress, Fade, TextField, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import * as FaleMaisApi from './FaleMaisApi'
 
@@ -99,28 +99,62 @@ class FaleMais extends React.Component {
                 const origin = this.state.origins.filter(origin=>origin.id==this.state.origin)[0].origin
                 const destiny = this.state.destinies.filter(destiny=>destiny.id==this.state.destinie)[0].destiny
                 return (
-                    <Table className={this.props.classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Origem</TableCell>
-                                <TableCell align="right">Destino</TableCell>
-                                <TableCell align="right">Tempo</TableCell>
-                                <TableCell align="right">Plano FaleMais</TableCell>
-                                <TableCell align="right">Com FaleMais</TableCell>
-                                <TableCell align="right">Sem FaleMais</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell align="right">{origin}</TableCell>
-                                <TableCell align="right">{destiny}</TableCell>
-                                <TableCell align="right">{this.state.totalCallMinutes}</TableCell>
-                                <TableCell align="right">{this.state.callValue.withPlan.plan}</TableCell>
-                                <TableCell align="right">{this.formatMoney(this.state.callValue.withPlan.valueInCents/100)}</TableCell>
-                                <TableCell align="right">{this.formatMoney(this.state.callValue.withoutPlan.valueInCents/100)}</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table> 
+                    <div>
+                        <Hidden only={['sm', 'xs']}>
+                            <Table className={this.props.classes.table} >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Origem</TableCell>
+                                        <TableCell align="right">Destino</TableCell>
+                                        <TableCell align="right">Tempo</TableCell>
+                                        <TableCell align="right">Plano FaleMais</TableCell>
+                                        <TableCell align="right">Com FaleMais</TableCell>
+                                        <TableCell align="right">Sem FaleMais</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell align="right">{origin}</TableCell>
+                                        <TableCell align="right">{destiny}</TableCell>
+                                        <TableCell align="right">{this.state.totalCallMinutes}</TableCell>
+                                        <TableCell align="right">{this.state.callValue.withPlan.plan}</TableCell>
+                                        <TableCell align="right">{this.formatMoney(this.state.callValue.withPlan.valueInCents/100)}</TableCell>
+                                        <TableCell align="right">{this.formatMoney(this.state.callValue.withoutPlan.valueInCents/100)}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table> 
+                        </Hidden>
+
+                        <Hidden only={['lg', 'md', 'xl']}>
+                            <Table className={this.props.classes.table} >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Origem</TableCell>
+                                        <TableCell align="right">Destino</TableCell>
+                                        <TableCell align="right">Tempo</TableCell>
+                                        
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell align="right">{origin}</TableCell>
+                                        <TableCell align="right">{destiny}</TableCell>
+                                        <TableCell align="right">{this.state.totalCallMinutes}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right">Plano FaleMais</TableCell>
+                                        <TableCell align="right">Com FaleMais</TableCell>
+                                        <TableCell align="right">Sem FaleMais</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right">{this.state.callValue.withPlan.plan}</TableCell>
+                                        <TableCell align="right">{this.formatMoney(this.state.callValue.withPlan.valueInCents/100)}</TableCell>
+                                        <TableCell align="right">{this.formatMoney(this.state.callValue.withoutPlan.valueInCents/100)}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table> 
+                        </Hidden>
+                    </div>
                 )
             }else{
                 return null
@@ -163,8 +197,8 @@ class FaleMais extends React.Component {
         return (
             <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={16}>
-                    <Grid item xs>
+                <Grid container spacing={16}>
+                    <Grid item lg={3} md={3} sm={6} xs={12}>
                         <TextField
                             id="origin-open-select"
                             select
@@ -183,7 +217,7 @@ class FaleMais extends React.Component {
                             {this.renderOrigins()}
                         </TextField>
                     </Grid>
-                    <Grid item md>
+                    <Grid item lg={3} md={3} sm={6} xs={12}>
                         <TextField
                             id="destinie-open-select"
                             select
@@ -203,7 +237,7 @@ class FaleMais extends React.Component {
                             {this.renderDestinies()}
                         </TextField>
                     </Grid>
-                    <Grid item lg>
+                    <Grid item lg={3} md={3} sm={6} xs={12}>
                         <TextField
                             id="plan-open-select"
                             select
@@ -222,7 +256,7 @@ class FaleMais extends React.Component {
                             {this.renderPlans()}
                         </TextField>
                     </Grid>
-                    <Grid item lg>
+                    <Grid item lg={3} md={3} sm={6} xs={12}>
                         <TextField
                         id="filled-name"
                         label="Minutos ligação"
